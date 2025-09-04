@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magical Bake House — Order Online</title>
+  <style>
+    :root {
+      --bg:#fff8f0;
+      --ink:#5a3e1b;
+      --card:#ffffff;
+      --line:#e7d9c8;
+      --chip:#f3e7dc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0;
+      font-family: system-ui, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background:var(--card);
+      padding:1rem 2rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+      position:sticky;top:0;z-index:100;
+    }
+    .logo { font-weight:700; font-size:1.3rem; }
+    .cart-btn {
+      position:relative;
+      background:none;border:none;cursor:pointer;
+      font-size:1.2rem;
+    }
+    .cart-count {
+      position:absolute;top:-6px;right:-10px;
+      background:red;color:#fff;
+      font-size:0.8rem;
+      padding:2px 6px;border-radius:50%;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #8b4513;
+      padding: 10px 20px;
+      position: sticky;
+      top: 60px; /* just below header */
+      z-index: 99;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+    nav ul li { display: inline-block; }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff8f0;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background: #fce8d9;
+      color: #8b4513;
+    }
+
+    /* ===== MENU GRID ===== */
+    .menu-section { padding:2rem; }
+    h2 { margin-top:0; }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:1rem;
+    }
+    .menu-item {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,.05);
+    }
+    .menu-item img {
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      border-radius:10px;
+    }
+    .row { display:flex; gap:6px; flex-wrap:wrap; }
+    select, input[type=number] {
+      padding:6px;border:1px solid #ccc;border-radius:6px;
+    }
+    .btn {
+      background:var(--ink);color:#fff;border:none;
+      border-radius:6px;padding:6px 12px;
+      cursor:pointer;
+    }
+
+    /* ===== CART DRAWER ===== */
+    #cart {
+      position:fixed;top:0;right:-400px;
+      width:350px;height:100%;
+      background:#fff;box-shadow:-2px 0 6px rgba(0,0,0,.2);
+      transition:right .3s ease;
+      z-index:200;padding:1rem;
+      display:flex;flex-direction:column;
+    }
+    #cart.open { right:0; }
+    .cart-header { display:flex;justify-content:space-between;align-items:center; }
+    .cart-items { flex:1;overflow-y:auto;margin-top:1rem; }
+    .cart-item {
+      display:grid;grid-template-columns:60px 1fr auto;gap:8px;
+      padding:8px 0;border-bottom:1px dashed #eee;
+      align-items:center;
+    }
+    .cart-img {
+      width:60px;height:60px;object-fit:cover;border-radius:6px;
+    }
+    .cart-footer { margin-top:1rem;border-top:1px solid #eee;padding-top:1rem; }
+    .remove { background:none;border:none;color:red;cursor:pointer;font-size:.8rem; }
+    .checkout { margin-top:1rem;background:green;color:#fff;padding:10px;border:none;border-radius:6px;cursor:pointer;width:100%; }
+    .qr { text-align:center;margin-top:1rem; }
+    .qr img { width:200px;height:auto; }
+  </style>
+</head>
+<body>
+  <!-- Header with logo + cart -->
+  <header>
+    <div class="logo">✨ Magical Bake House</div>
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒 <span id="cart-count" class="cart-count">0</span>
+    </button>
+  </header>
+
+  <!-- Navigation bar -->
+  <nav>
+    <ul>
+      <li><a href="A12.html">Home</a></li>
+      <li><a href="m5.html">Menu</a></li>
+      <li><a href="#specials">Specials</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#why-us">About</a></li>
+      <li><a href="cont.html">Contact</a></li>
+    </ul>
+  </nav>
+</body>
+<main>
+  <!-- Cakes -->
+  <section class="menu-section">
+    <h2>Creamy & Cold Delights</h2>
+    <div class="grid">
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?cheesecake" alt="Classic Cheesecake">
+        <h3>Classic Cheesecake</h3>
+        <div class="row">
+          <select id="cheesecake">
+            <option value="850|Half Kg">Half Kg — ₹850</option>
+            <option value="1600|1 Kg">1 Kg — ₹1600</option>
+          </select>
+          <input type="number" id="qty-cheesecake" value="1" min="1">
+          <button class="btn" onclick="addSel('Classic Cheesecake','cheesecake','qty-cheesecake','https://source.unsplash.com/400x300/?cheesecake')">Add</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Blueberry Cheesecake</h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="950|Half Kg">Half Kg — ₹950</option>
+            <option value="1800|1 Kg">1 Kg — ₹1800</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+      </div>
+ <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Biscoff Cheesecake </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="1200|Half Kg">Half Kg — ₹1200</option>
+            <option value="2300|1 Kg">1 Kg — ₹2300</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+      </div>
+
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Italian Tiramisu </h3>
+        <div class="row">
+          <select id="truffle">
+         <option value=" ₹350|per tub">per tube — ₹350</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+      </div>
+
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Caramel Flan </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Banoffee Pie </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div> 
+      
+
+    </div>
+  </section>
+
+  <!-- Cookies -->
+  <section class="menu-section">
+    <h2>Flavoured Cream Cakes</h2>
+    <div class="grid">
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Classic Chocolate Cake</h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="800|Half Kg">Half Kg — ₹800</option>
+            <option value="1500|1 Kg">1 Kg — ₹1500</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Chocolate Truffle Cake  </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="900|Half Kg">Half Kg — ₹900</option>
+            <option value="1500|1 Kg">1 Kg — ₹1500</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Strawberry Cake  </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="800|Half Kg">Half Kg — ₹900</option>
+            <option value="1500|1 Kg">1 Kg — ₹1500</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+        <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3> Butterscotch Cake </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="800|Half Kg">Half Kg — ₹800</option>
+            <option value="1500|1 Kg">1 Kg — ₹1500</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3> Pineapple Cake</h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="800|Half Kg">Half Kg — ₹800</option>
+            <option value="1500|1 Kg">1 Kg — ₹1500</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3> Mixed Fruit Cake   </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="900|Half Kg">Half Kg — ₹900</option>
+            <option value="1700|1 Kg">1 Kg — ₹1700</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3> Red Velvet Cake   </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="900|Half Kg">Half Kg — ₹900</option>
+            <option value="1700|1 Kg">1 Kg — ₹1570</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3> Black Forest Cake </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="700|Half Kg">Half Kg — ₹700</option>
+            <option value="1300|1 Kg">1 Kg — ₹1300</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>White Forest Cake    </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="700|Half Kg">Half Kg — ₹700</option>
+            <option value="1300|1 Kg">1 Kg — ₹1300</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+    </div>
+  </section>
+  <section class="menu-section">
+    <h2>Tea Cakes</h2>
+    <div class="grid">
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Pineapple Upside Down</h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="800|Half Kg">Half Kg — ₹800</option>
+            <option value="1500|1 Kg">1 Kg — ₹1500</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Orange & Fig </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+      
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Honey Walnut </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>
+      
+      <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Banana Cake  </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div>  
+
+ <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Plum Cake  </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div> 
+
+<div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+        <h3>Carrot Cake  </h3>
+        <div class="row">
+          <select id="truffle">
+            <option value="750|Half Kg">Half Kg — ₹750</option>
+            <option value="1450|1 Kg">1 Kg — ₹1450</option>
+          </select>
+          <input type="number" id="qty-truffle" value="1" min="1">
+          <button class="btn" onclick="addSel('Chocolate Truffle Cake','truffle','qty-truffle','https://source.unsplash.com/400x300/?chocolate-cake')">Add</button>
+        </div>
+        </div> 
+
+    </div>
+  </section>
+
+<h2>Cookies (Eggless)</h2>
+  <p class="note">Minimum order 10 cookies</p>
+  <div class="grid">
+    <div class="menu-item">
+    <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Classic Chocochip</h3>
+      <div class="price-line">₹40 / pc</div>
+      <div class="row">
+        <input type="number" id="qty-chocochip" min="10" step="1" value="10" />
+        <button class="btn" onclick="addFixed('Classic Chocochip','Per pc',40,'qty-chocochip')">Add</button>
+      </div>
+      <div class="small">Tip: Minimum 10 pieces enforced.</div>
+    </div>
+
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Oats & Raisins</h3>
+      <div class="price-line">₹40 / pc</div>
+      <div class="row">
+        <input type="number" id="qty-oats" min="10" step="1" value="10" />
+        <button class="btn" onclick="addFixed('Oats & Raisins','Per pc',40,'qty-oats')">Add</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Coconut Cookies</h3>
+      <div class="price-line">₹40 / pc</div>
+      <div class="row">
+        <input type="number" id="qty-coconut" min="10" step="1" value="10" />
+        <button class="btn" onclick="addFixed('Coconut Cookies','Per pc',40,'qty-coconut')">Add</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <h3>Naan Khatai</h3>
+      <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <div class="price-line">₹60 / pc</div>
+      <div class="row">
+        <input type="number" id="qty-naankhatai" min="10" step="1" value="10" />
+        <button class="btn" onclick="addFixed('Naan Khatai','Per pc',60,'qty-naankhatai')">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== Brownies (Eggless) ============== -->
+  <h2>Brownies (Eggless)</h2>
+  <p class="note">Per pack contains 6 pieces</p>
+  <div class="grid">
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Chocochip Brownie</h3>
+      <div class="price-line">₹700 / pack</div>
+      <div class="row">
+        <input type="number" id="qty-brownie-choco" min="1" value="1" />
+        <button class="btn" onclick="addFixed('Chocochip Brownie','Per pack (6 pcs)',700,'qty-brownie-choco')">Add</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Walnut Fudge Brownie</h3>
+      <div class="price-line">₹850 / pack</div>
+      <div class="row">
+        <input type="number" id="qty-brownie-walnut" min="1" value="1" />
+        <button class="btn" onclick="addFixed('Walnut Fudge Brownie','Per pack (6 pcs)',850,'qty-brownie-walnut')">Add</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Peanut Butter Brownie</h3>
+      <div class="price-line">₹850 / pack</div>
+      <div class="row">
+        <input type="number" id="qty-brownie-peanut" min="1" value="1" />
+        <button class="btn" onclick="addFixed('Peanut Butter Brownie','Per pack (6 pcs)',850,'qty-brownie-peanut')">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== Donuts (Eggless) ============== -->
+  <h2>Donuts (Eggless)</h2>
+  <p class="note">Per pack contains 6 pieces</p>
+  <div class="grid">
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Chocolate Donuts</h3>
+      <div class="price-line">₹550 / pack</div>
+      <div class="row">
+        <input type="number" id="qty-donut-choco" min="1" value="1" />
+        <button class="btn" onclick="addFixed('Chocolate Donuts','Per pack (6 pcs)',550,'qty-donut-choco')">Add</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Nutella Donuts</h3>
+      <div class="price-line">₹750 / pack</div>
+      <div class="row">
+        <input type="number" id="qty-donut-nutella" min="1" value="1" />
+        <button class="btn" onclick="addFixed('Nutella Donuts','Per pack (6 pcs)',750,'qty-donut-nutella')">Add</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?chocolate-cake" alt="Chocolate Truffle Cake">
+      <h3>Nutella Bomboloni</h3>
+      <div class="price-line">₹1100 / pack</div>
+      <div class="row">
+        <input type="number" id="qty-bomboloni" min="1" value="1" />
+        <button class="btn" onclick="addFixed('Nutella Bomboloni','Per pack (6 pcs)',1100,'qty-bomboloni')">Add</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+
+<!-- Cart Drawer -->
+<div id="cart">
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button onclick="toggleCart()">✖</button>
+  </div>
+  <div id="cart-items" class="cart-items"></div>
+  <div class="cart-footer">
+    <div><b>Total:</b> ₹<span id="cart-total">0</span></div>
+    <button class="checkout" onclick="showQR()">Proceed to Checkout</button>
+    <div id="qr-box" class="qr" style="display:none;">
+      <p>Scan to Pay</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=magicalbakehouse@upi&pn=MagicalBakeHouse&am=100" alt="QR Code">
+    </div>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+
+  function toggleCart(){
+    document.getElementById('cart').classList.toggle('open');
+  }
+
+  function addSel(name, selectId, qtyId, img){
+    const [priceStr, variant] = document.getElementById(selectId).value.split('|');
+    addToCart(name, variant, parseInt(priceStr,10), parseInt(document.getElementById(qtyId).value,10), img);
+  }
+
+  function addFixed(name, variant, price, qtyId, img){
+    addToCart(name, variant, price, parseInt(document.getElementById(qtyId).value,10), img);
+  }
+
+  function addToCart(name, variant, price, qty, img){
+    if(!qty || qty < 1) qty = 1;
+    const idx = cart.findIndex(i => i.name===name && i.variant===variant && i.price===price);
+    if(idx > -1){
+      cart[idx].qty += qty;
+    } else {
+      cart.push({name, variant, price, qty, img});
+    }
+    updateCart();
+    document.getElementById('cart').classList.add('open');
+  }
+
+  function removeItem(i){
+    cart.splice(i,1);
+    updateCart();
+  }
+
+  function updateCart(){
+    const cartItems = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
+
+    let count = 0, total = 0;
+    cartItems.innerHTML = '';
+
+    cart.forEach((item,i)=>{
+      count += item.qty;
+      let line = item.price * item.qty;
+      total += line;
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.img}" class="cart-img" alt="">
+          <div>
+            <div><b>${item.name}</b></div>
+            <div>${item.variant}</div>
+            <div>Qty: ${item.qty} × ₹${item.price}</div>
+          </div>
+          <div style="text-align:right;">
+            <div>₹${line}</div>
+            <button class="remove" onclick="removeItem(${i})">Remove</button>
+          </div>
+        </div>`;
+    });
+
+    cartCount.textContent = count;
+    cartTotal.textContent = total;
+  }
+
+  function showQR(){
+    document.getElementById('qr-box').style.display='block';
+  }
+</script>
+</body>
+</html>

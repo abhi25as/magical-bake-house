@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magical Bake House</title>
+  <meta name="description" content="Magical Bake House — fresh breads, cakes, pastries, and coffee. Order online or visit our cozy bakery!" />
+  <style>
+    :root{
+      --bg:#fff8f0;
+      --paper:#ffffff;
+      --ink:#5a3e1b;
+      --accent:#ff7aa2;
+      --accent-2:#ffd166;
+      --mint:#c6f1e7;
+      --shadow:0 10px 30px rgba(90,62,27,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1100px, 92%);margin-inline:auto}
+
+    header{position:sticky;top:0;background:rgba(255,248,240,.85);backdrop-filter:saturate(180%) blur(10px);z-index:50;border-bottom:1px solid #f2e9df}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.5px}
+    .brand-logo{width:40px;height:40px;border-radius:50%;background:conic-gradient(from 180deg,var(--accent),var(--accent-2));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand-logo svg{width:22px;height:22px;fill:#fff}
+    nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+    nav a{padding:.55rem .8rem;border-radius:12px}
+    nav a:hover, nav a:focus{background:var(--paper);outline:none;box-shadow:var(--shadow)}
+    .cta{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:14px;box-shadow:var(--shadow)}
+    .cta:hover{opacity:.95}
+    .mobile-menu{display:none}
+
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:4rem 0}
+    .hero .tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--paper);padding:.4rem .7rem;border-radius:999px;box-shadow:var(--shadow);font-weight:600}
+    .hero h1{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:.6rem 0}
+    .hero p{font-size:1.05rem;opacity:.9}
+    .hero .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1rem;border-radius:16px;border:1px solid #eadfd2;background:var(--paper);box-shadow:var(--shadow);font-weight:700}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#ff9db8);border:none;color:#fff}
+    .badge{display:inline-grid;place-items:center;background:var(--mint);padding:.6rem;border-radius:12px;rotate:-6deg;box-shadow:var(--shadow);font-weight:800}
+
+    .grid{display:grid;gap:1rem}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--paper);border:1px solid #f1e6db;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}
+    .card h3{margin:.2rem 0 .3rem}
+    .chip{display:inline-flex;gap:.35rem;align-items:center;background:#f8efe5;border:1px dashed #e8d9c5;padding:.35rem .6rem;border-radius:999px;font-size:.85rem}
+
+    #menu{scroll-margin-top:90px}
+    .tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+    .tab{padding:.55rem .9rem;border-radius:999px;border:1px solid #eedfcd;background:var(--paper);cursor:pointer;font-weight:700}
+    .tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .item{display:flex;gap:.9rem;background:var(--paper);border:1px solid #f1e6db;padding:.9rem;border-radius:16px}
+    .thumb{width:70px;height:70px;border-radius:12px;background:linear-gradient(135deg,#fff,var(--mint));flex:0 0 70px;overflow:hidden}
+    .price{margin-left:auto;font-weight:800}
+    .veg{width:10px;height:10px;border:2px solid #0b8d1a;border-radius:2px;display:inline-block;position:relative;margin-left:.35rem}
+    .veg::after{content:"";position:absolute;inset:2px;background:#0b8d1a}
+
+    .specials{position:relative}
+    .rail{display:flex;gap:1rem;overflow:auto;scroll-snap-type:x proximity;padding-bottom:.3rem}
+    .rail .card{min-width:260px;scroll-snap-align:center}
+
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+    .gallery img{border-radius:16px;aspect-ratio:4/3;object-fit:cover}
+
+    .about{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:start}
+    .quote{font-style:italic;background:#fff1f1;border:1px solid #ffe1ea;border-radius:16px;padding:1rem}
+
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    form{display:grid;gap:.7rem}
+    input,select,textarea{padding:.75rem;border-radius:12px;border:1px solid #e7dac8;background:var(--paper)}
+    button{cursor:pointer}
+
+    footer{margin-top:2rem;padding:1.2rem 0;border-top:1px solid #f2e9df;color:#8a6d53}
+
+    section{padding:2rem 0}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+    .section-title h2{margin:0}
+
+    /* Why Us */
+    .why-us{
+      background:var(--paper);
+      border:1px solid #f1e6db;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:2rem;
+      margin:2rem 0;
+    }
+    .why-us .section-title h2{
+      font-size:1.6rem;
+      color:var(--ink);
+    }
+    .why-us .reasons{
+      list-style:none;
+      margin:1rem 0 0;
+      padding:0;
+      display:grid;
+      gap:.7rem;
+      font-weight:600;
+      color:var(--ink);
+    }
+    .why-us .reasons li{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.5rem .8rem;
+      background:#fdf7f2;
+      border-radius:12px;
+      border:1px dashed #e7d9c5;
+    }
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr 1fr}
+      .menu-grid{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+    }
+    @media (max-width:700px){
+      nav ul{display:none}
+      .mobile-menu{display:inline-flex;gap:.4rem}
+      .gallery{grid-template-columns:1fr 1fr}
+      .grid.cols-3{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar" role="navigation" aria-label="Primary">
+      <a class="brand" href="#home" aria-label="Magical Bake House Home">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2c-3.3 0-6 2.7-6 6 0 4.5 6 14 6 14s6-9.5 6-14c0-3.3-2.7-6-6-6zm0 9a3 3 0 110-6 3 3 0 010 6z"/></svg>
+        </span>
+        <span>Magical Bake House</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="A12.html">Home</a></li>
+          <li><a href="m5.html">Menu</a></li>
+          <li><a href="s1.html">Specials</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#why-us">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-menu">
+        <a class="btn" href="#menu" aria-label="Open menu">Menu</a>
+        <a class="cta" href="order3.html">Order</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <span class="tag">✨ Freshly baked every morning</span>
+        <h1>Whisking joy into every bite</h1>
+        <p>From artisan sourdough to celebration cakes, enjoy hand-crafted goodness baked with the finest ingredients. Order online or drop by our cozy corner bakery.</p>
+        <div class="actions">
+          <a class="btn primary" href="m5.html">See Menu</a>
+          <a class="btn" href="order3.html">Order Now</a>
+          <span class="badge">Open • 10am–7pm</span>
+        </div>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1541976076758-347942db1970?q=80&w=1200&auto=format&fit=crop" alt="Assorted pastries and bread on a wooden board" loading="lazy"/>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-us" class="why-us">
+      <div class="container">
+        <div class="section-title">
+          <h2>Why choose us?</h2>
+        </div>
+        <ul class="reasons">
+          <li>🍪 Homemade Goodness</li>
+          <li>🥚 100% Egg-less options are available</li>
+          <li>🔥 Freshly Baked on Order</li>
+          <li>⭐ Premium Ingredients</li>
+          <li>🌸 Unique Flavour</li>
+        </ul>
+      </div>
+    </section>
+
+    
+  </main>
+<section id="contact" class="contact" aria-labelledby="contact-heading">
+      <div>
+        <h2 id="contact-heading">Visit Us</h2>
+        <p><strong>Address:</strong> #417 C, inside JTPL sector 115 Mohali</p>
+        <p><strong>Hours:</strong> Mon-Sun 10:00 AM – 7:00 PM</p>
+        <p><strong>Phone:</strong> <a href="tel:90567-99889">+91 12345 67890</a> • <strong>Email:</strong> <a href="mailto:hello@magicalbakehouse.com">hello@magicalbakehouse.com</a></p>
+        <div class="card" aria-label="Map placeholder">
+          <iframe title="Map" 
+            style="width:100%;height:220px;border:0;border-radius:12px;margin-top:.5rem" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3431.157424325069!2d76.6381014!3d30.7270927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fed4f8a4a4e9f%3A0x0!2zMzDCsDQzJzM3LjUiTiA3NsKwMzgnMjYuNCJF!5e0!3m2!1sen!2sin!4v1692456789012!5m2!1sen!2sin">
+          </iframe>
+        </div>
+      </div>
+      
+    </section>
+  <footer>
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <small>© <span id="year"></span> Magical Bake House. All rights reserved.</small>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <a class="chip" href="https://www.instagram.com/mbh__bynikki?igsh=bnEwcXVjYW13enpx">Instagram</a>
+          <a class="chip" href="#">Facebook</a>
+          <a class="chip" href="#">Zomato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const items = document.querySelectorAll('.item');
+    tabs.forEach(t=>t.addEventListener('click',()=>{
+      tabs.forEach(b=>b.classList.remove('active')); t.classList.add('active');
+      const cat = t.dataset.cat;
+      items.forEach(it=>{
+        it.style.display = (cat==='all' || it.dataset.cat===cat) ? 'flex' : 'none';
+      });
+    }));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function printMenu(){
+      const menu = document.getElementById('menu');
+      const w = window.open('', 'PRINT', 'height=650,width=900');
+      w.document.write(`<!doctype html><html><head><title>Menu - Magical Bake House</title>
+        <style>
+          body{font-family:system-ui,Arial,sans-serif;padding:20px;color:#333}
+          h2{margin-top:0}
+          .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+          .item{border:1px solid #ddd;border-radius:10px;padding:10px;display:flex;gap:10px}
+          .thumb{width:60px;height:60px;border-radius:8px;overflow:hidden}
+          .price{margin-left:auto;font-weight:800}
+          @media(print){img{filter:grayscale(.9)}}
+          @media(max-width:700px){.menu-grid{grid-template-columns:1fr}}
+        </style>
+      </head><body>`);
+      w.document.write(menu.innerHTML);
+      w.document.write('</body></html>');
+      w.document.close();
+      w.focus();
+      w.print();
+      w.close();
+    }
+function handleOrder(e){
+  e.preventDefault();
+
+  // Collect form data
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const item = document.getElementById('item').value;
+  const qty = document.getElementById('qty').value;
+  const notes = document.getElementById('notes').value.trim();
+
+  // Bakery WhatsApp number (with country code, no + or spaces)
+  const bakeryNumber = "919876543210"; // <-- replace with your bakery’s WhatsApp number
+
+  // Format WhatsApp message (with line breaks %0A)
+  const msg = `Hello Magical Bake House! 🍰%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Order: ${item} × ${qty}%0A
+Notes: ${notes ? notes : "—"}%0A`;
+
+  // WhatsApp API link
+  const url = `https://wa.me/${bakeryNumber}?text=${encodeURIComponent(msg)}`;
+
+  // Open WhatsApp
+  window.open(url, "_blank");
+}
+    
