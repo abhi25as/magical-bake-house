@@ -1,0 +1,210 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magical Bake House — Specials</title>
+  <style>
+    :root {
+      --bg:#fff8f0;
+      --ink:#5a3e1b;
+      --card:#ffffff;
+      --line:#e7d9c8;
+      --highlight:#d35400;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 0.8rem 1rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+    nav a:hover {
+      color: var(--highlight);
+    }
+
+    /* Specials Section */
+    .specials {
+      padding: 3rem 1rem;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .specials h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+
+    .special-note {
+      font-size: 1.1rem;
+      color: #4b2d14;
+      margin-bottom: 2rem;
+    }
+
+    .specials-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .special-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .special-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .special-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .special-card h3 {
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+      color: var(--ink);
+    }
+
+    .special-card p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #4b2d14;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #b12704;
+    }
+
+    .price del {
+      color: #888;
+      font-size: 0.95rem;
+      margin-left: 0.4rem;
+    }
+
+    .tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--highlight);
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .btn {
+      background: var(--highlight);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 0.8rem;
+      transition: background 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #a84300;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="A12.html">Home</a></li>
+      <li><a href="m5.html">Menu</a></li>
+      <li><a href="s1.html">Specials</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </nav>
+<body>
+
+  <section id="specials" class="specials">
+    <h2>🎉 Specials & Offers</h2>
+    <p class="special-note">Freshly baked delights at irresistible prices. Limited time only!</p>
+
+    <div class="specials-grid">
+
+      <!-- Cheesecake Offer -->
+      <div class="special-card">
+        <div class="tag">20% OFF</div>
+        <img src="images/offer_cheesecake.jpg" alt="Cheesecake Offer">
+        <h3>Cheesecake Delight</h3>
+        <p>All varieties of cheesecakes at a special discount today only!</p>
+        <p class="price">₹680 <del>₹850</del></p>
+        <a href="order3.html?item=Cheesecake%20Delight&category=Special%20Offer&price=680&img=images/offer_cheesecake.jpg" class="btn">
+          Add Offer
+        </a>
+      </div>
+
+      <!-- Donuts Offer -->
+      <div class="special-card">
+        <div class="tag">Save ₹100</div>
+        <img src="images/offer_donuts.jpg" alt="Donuts Offer">
+        <h3>Donuts Pack</h3>
+        <p>Pack of 6 Donuts now at just ₹450!</p>
+        <p class="price">₹450 <del>₹550</del></p>
+        <a href="order3.html?item=Donuts%20Pack&category=Special%20Offer&price=450&img=images/offer_donuts.jpg" class="btn">
+          Add Offer
+        </a>
+      </div>
+
+      <!-- Cookies Combo -->
+      <div class="special-card">
+        <div class="tag">Combo Deal</div>
+        <img src="images/offer_cookies.jpg" alt="Cookies Combo">
+        <h3>Cookies Combo Pack</h3>
+        <p>Any 10 Cookies for just ₹350!</p>
+        <p class="price">₹350 <del>₹420</del></p>
+        <a href="order3.html?item=Cookies%20Combo%20Pack&category=Special%20Offer&price=350&img=images/offer_cookies.jpg" class="btn">
+          Add Offer
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <title>Magical Bake House — Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff8f0;
+      color: #5a3e1b;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #8b4513;   /* chocolate brown */
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+    nav ul li {
+      display: inline-block;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff8f0;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background: #fce8d9;
+      color: #8b4513;
+    }
+
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin: 20px 0 5px 0;
+      color: #8b4513;
+    }
+
+    p.note {
+      text-align: center;
+      margin: 0 0 20px;
+      font-style: italic;
+      color: #7a5c42;
+    }
+
+    /* Scroll container */
+    .menu-scroll {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    /* Horizontal list */
+    .menu-list {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 20px;
+      list-style: none;
+      padding: 10px;
+      margin: 0;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    .menu-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Menu item card */
+    .menu-row {
+      background: #fff;
+      border: 1px solid #e0c9a6;
+      border-radius: 10px;
+      padding: 15px;
+      width: 180px;
+      flex: 0 0 auto;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .menu-row:hover {
+      transform: translateY(-5px);
+    }
+
+    .menu-row img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .menu-row h3, .menu-row .name {
+      font-size: 1.2rem;
+      margin: 5px 0;
+      color: #5a3e1b;
+      display: block;
+    }
+
+    .unit {
+      display: block;
+      font-size: 0.9rem;
+      color: #7a5c42;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      display: block;
+      font-weight: bold;
+      color: #8b0000;
+    }
+
+    /* Scroll buttons */
+    .scroll-btn {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      z-index: 5;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .scroll-btn.left { left: 5px; }
+    .scroll-btn.right { right: 5px; }
+
+    .menu-scroll:hover .scroll-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    footer.thanks {
+      margin-top: 30px;
+      text-align: center;
+      padding: 15px;
+      background: #fce8d9;
+      border-top: 2px solid #e0c9a6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Navbar -->
+  <nav>
+    <ul>
+      <li><a href="A12.html">Home</a></li>
+      <li><a href="m5.html">Menu</a></li>
+      <li><a href="s1.html">Specials</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </nav>
+</body>
+<body>
+<section id="menu" aria-labelledby="menu-heading">
+  <div class="section-title">
+    <h2 id="menu-heading">Menu</h2>
+  </div>
+
+<div class="container">
+
+    <!-- Creamy & Cold Delights -->
+    <h2>Creamy & Cold Delights</h2>
+    <div class="menu-scroll">
+    <ul class="menu-list">
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/aaa1.jpg" alt="" class="thumb">
+        <span class="name">Classic Cheesecake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹850 / ₹1600</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/aaa2.jpg" alt="" class="thumb">
+        <span class="name">Blueberry Cheesecake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹950 / ₹1800</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/aaa3.jpg" alt="" class="thumb">
+        <span class="name">Biscoff Cheesecake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹1200 / ₹2300</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/aaa4.jpg" alt="" class="thumb">
+        <span class="name">Italian Tiramisu</span>
+        <span class="dots"></span>
+        <span class="unit">Per Tub</span>
+        <span class="price">₹350</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/aaa5.jpg" alt="" class="thumb">
+        <span class="name">Caramel Flan</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹750 / ₹1450</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/oki.jpg" alt="" class="thumb">
+        <span class="name">Banoffee Pie</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹750 / ₹1450</span>
+      </li>
+       </ul>
+    <button class="scroll-btn right">&#10095;</button>
+  </div>
+    <!-- Flavoured Cream Cakes -->
+    <h2>Flavoured Cream Cakes</h2>
+    <div class="menu-scroll">
+    <ul class="menu-list">
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/OSK1.jpg" alt="" class="thumb">
+        <span class="name">Classic Chocolate Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/osk2.jpg" alt="" class="thumb">
+        <span class="name">Chocolate Truffle Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹900 / ₹1700</span>
+      </li>
+      <li class="menu-row">
+        <img src="file:///C:/xampp/htdocs/bbk/OIP1.jpg" alt="" class="thumb">
+        <span class="name">Strawberry Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cake-choc-truffle.jpg" alt="" class="thumb">
+        <span class="name">Butterscotch Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cake-choc-truffle.jpg" alt="" class="thumb">
+        <span class="name">Pineapple Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cake-choc-truffle.jpg" alt="" class="thumb">
+        <span class="name">Mixed Fruit Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹900 / ₹1700</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cake-choc-truffle.jpg" alt="" class="thumb">
+        <span class="name">Red Velvet Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹900 / ₹1700</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cake-choc-truffle.jpg" alt="" class="thumb">
+        <span class="name">Black Forest Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹700 / ₹1300</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cake-choc-truffle.jpg" alt="" class="thumb">
+        <span class="name">White Forest Cake</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹700 / ₹1300</span>
+      </li>
+      <!-- add rest similar way -->
+    
+    </ul>
+    <button class="scroll-btn right">&#10095;</button>
+</div>
+
+    <!-- Tea Cakes -->
+    <h2>Tea Cakes</h2>
+    <div class="menu-scroll"></div>
+    <ul class="menu-list">
+      <li class="menu-row">
+        <img src="images/teacake-pineapple-upside.jpg" alt="" class="thumb">
+        <span class="name">Pineapple Upside Down</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/teacake-pineapple-upside.jpg" alt="" class="thumb">
+        <span class="name">Orange & Fig  </span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+       <li class="menu-row">
+        <img src="images/teacake-pineapple-upside.jpg" alt="" class="thumb">
+        <span class="name">Honey Walnut</span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+       <li class="menu-row">
+        <img src="images/teacake-pineapple-upside.jpg" alt="" class="thumb">
+        <span class="name">Banana Cake </span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+       <li class="menu-row">
+        <img src="images/teacake-pineapple-upside.jpg" alt="" class="thumb">
+        <span class="name">Plum Cake </span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/teacake-pineapple-upside.jpg" alt="" class="thumb">
+        <span class="name">Carrot Cake </span>
+        <span class="dots"></span>
+        <span class="unit">Half Kg / One Kg</span>
+        <span class="price">₹800 / ₹1500</span>
+      </li>
+      <!-- others similar -->
+    </ul>
+      <button class="scroll-btn right">&#10095;</button>   
+   </div>
+    <!-- Cookies -->
+    <h2>Cookies (Eggless)</h2>
+    <div class="menu-scroll">
+    <ul class="menu-list">
+      <li class="menu-row">
+        <img src="images/cookie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Classic Chocochip</span>
+        <span class="dots"></span>
+        <span class="unit">Min 10 pcs</span>
+        <span class="price">₹40 / pc</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cookie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Oats & Raisins</span>
+        <span class="dots"></span>
+        <span class="unit">Min 10 pcs</span>
+        <span class="price">₹40 / pc</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/cookie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Coconut Cookies</span>
+        <span class="dots"></span>
+        <span class="unit">Min 10 pcs</span>
+        <span class="price">₹40 / pc</span>
+      </li>
+       <li class="menu-row">
+        <img src="images/cookie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Naan Khatai</span>
+        <span class="dots"></span>
+        <span class="unit">Min 10 pcs</span>
+        <span class="price">₹60 / pc</span>
+      </li>
+      <!-- others similar -->
+    </ul>
+        <button class="scroll-btn right">&#10095;</button>
+   </div>
+    <!-- Brownies -->
+    <h2>Brownies (Eggless)</h2>
+    <div class="menu-scroll">
+    <ul class="menu-list">
+      <li class="menu-row">
+        <img src="images/brownie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Chocochip Brownie</span>
+        <span class="dots"></span>
+        <span class="unit">Pack of 6</span>
+        <span class="price">₹700</span>
+      </li>
+        <li class="menu-row">
+        <img src="images/brownie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Walnut Fudge Brownie</span>
+        <span class="dots"></span>
+        <span class="unit">Pack of 6</span>
+        <span class="price">₹850</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/brownie-chocochip.jpg" alt="" class="thumb">
+        <span class="name">Peanut Butter Brownie</span>
+        <span class="dots"></span>
+        <span class="unit">Pack of 6</span>
+        <span class="price">₹850</span>
+      </li>
+      <!-- others similar -->
+    </ul>
+     <button class="scroll-btn right">&#10095;</button>
+   </div>
+    <!-- Donuts -->
+    <h2>Donuts (Eggless)</h2>
+    <div class="menu-scroll">
+    <ul class="menu-list">
+      <li class="menu-row">
+        <img src="images/donuts-chocolate.jpg" alt="" class="thumb">
+        <span class="name">Chocolate Donuts</span>
+        <span class="dots"></span>
+        <span class="unit">Pack of 6</span>
+        <span class="price">₹550</span>
+      </li>
+      <li class="menu-row">
+        <img src="images/donuts-chocolate.jpg" alt="" class="thumb">
+        <span class="name">Nutella Donuts</span>
+        <span class="dots"></span>
+        <span class="unit">Pack of 6</span>
+        <span class="price">₹750</span>
+      </li>
+       <li class="menu-row">
+        <img src="images/donuts-chocolate.jpg" alt="" class="thumb">
+        <span class="name">Nutella Bomboloni</span>
+        <span class="dots"></span>
+        <span class="unit">Pack of 6</span>
+        <span class="price">₹1100</span>
+      </li>
+      <!-- others similar -->
+ 
+    </ul>
+     <button class="scroll-btn right">&#10095;</button>
+   </div>
+
+    <!-- repeat same structure for other categories -->
+
+    <!-- Terms -->
+    <h2>Terms &amp; Conditions</h2>
+    <p class="terms">
+      All products available on pre-order (24 hrs prior).<br>
+      Fondant cakes require 48 hrs prior order.<br>
+      Orders confirmed only upon 50% advance payment.<br>
+      No refund for same-day or last-minute cancellation.<br>
+      Delivery charges from customer’s end.<br>
+      All products made with fresh ingredients, no preservatives.<br>
+      Premium ingredients used: Morde Chocolate, Dairy Craft Cream Cheese, Amul Butter, Fresh Fruits, etc.
+    </p>
+  </div>
+
+  <footer class="thanks">
+    <p><strong>Thank you for choosing Magical Bake House by Nikki</strong><br>
+    Where every bake is made with love! ❤️</p>
+  </footer>
+</section>
+
+<script>
+  document.querySelectorAll('.menu-scroll').forEach(scrollBox => {
+    const list = scrollBox.querySelector('.menu-list');
+    const leftBtn = scrollBox.querySelector('.scroll-btn.left');
+    const rightBtn = scrollBox.querySelector('.scroll-btn.right');
+
+    leftBtn.addEventListener('click', () => {
+      list.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+    rightBtn.addEventListener('click', () => {
+      list.scrollBy({ left: 200, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

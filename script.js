@@ -1,0 +1,3 @@
+function printMenu(){
+  window.print();
+}
